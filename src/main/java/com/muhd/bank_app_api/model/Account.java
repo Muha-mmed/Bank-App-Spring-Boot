@@ -10,39 +10,53 @@ import jakarta.persistence.Id;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long account_number;
-    @Column
-    private String account_holder_name;
-    @Column
-    private Double account_balance;
+    private Long id;
+
+    @Column(name="accountNumber",unique= true, length= 10)
+    private String accountNumber;
+    @Column(name = "account_holder_name")
+    private String accountHolderName;
+    @Column(name = "account_balance")
+    private Double accountBalance;
+
     public Account() {
     }
-    public Account(Long account_number, String account_holder_name, Double account_balance) {
-        this.account_number = account_number;
-        this.account_holder_name = account_holder_name;
-        this.account_balance = account_balance;
+
+    public Account(Long id, String accountNumber, String accountHolderName, Double accountBalance) {
+        this.id = id;
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.accountBalance = accountBalance;
     }
-    public Long getAccount_number() {
-        return account_number;
+
+    public Long getId() {
+        return id;
     }
-    public void setAccount_number(Long account_number) {
-        this.account_number = account_number;
+    public void setId(Long id) {
+        this.id = id;
     }
-    public String getAccount_holder_name() {
-        return account_holder_name;
+
+    public String getAccountNumber() {
+        return accountNumber;
     }
-    public void setAccount_holder_name(String account_holder_name) {
-        this.account_holder_name = account_holder_name;
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
-    public Double getAccount_balance() {
-        return account_balance;
+    public String getAccountHolderName() {
+        return accountHolderName;
     }
-    public void setAccount_balance(Double account_balance) {
-        this.account_balance = account_balance;
+    public void setAccountHolderName(String accountHolderName) {
+        this.accountHolderName = accountHolderName;
+    }
+    public Double getAccountBalance() {
+        return accountBalance;
+    }
+    public void setAccountBalance(Double accountBalance) {
+        this.accountBalance = accountBalance;
     }
     @Override
     public String toString() {
-        return "Account [account_number=" + account_number + ", account_holder_name=" + account_holder_name
-                + ", account_balance=" + account_balance + "]";
+        return "Account [accountNumber=" + accountNumber + ", accountHolderName=" + accountHolderName
+                + ", accountBalance=" + accountBalance + "]";
     }
 }

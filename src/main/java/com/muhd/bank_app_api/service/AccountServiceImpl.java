@@ -17,8 +17,10 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public Account createAccount(Account account) {
-      Account acc_saved =repo.save(account);
-      return acc_saved;
+      Account acc_saved = repo.save(account);
+      String acc_num = "202520"+String.format("%03d", acc_saved.getId());
+      acc_saved.setAccountNumber(acc_num);
+      return repo.save(acc_saved);
     }
 
     @Override
@@ -41,8 +43,8 @@ public class AccountServiceImpl implements AccountService{
         }
         Account getAccount = account.get();
         if(amount > 0){
-            double totalBalance = getAccount.getAccount_balance()+amount;
-            getAccount.setAccount_balance(totalBalance);
+            double totalBalance = getAccount.getAccountBalance()+amount;
+            getAccount.setAccountBalance(totalBalance);
             repo.save(getAccount);
         }
         return getAccount;
@@ -55,9 +57,9 @@ public class AccountServiceImpl implements AccountService{
             throw new RuntimeException("Account is not present");
         }
         Account getAccount = account.get();
-        if (getAccount.getAccount_balance() > 0) {
-            double totalBalance = getAccount.getAccount_balance() - amount;
-            getAccount.setAccount_balance(totalBalance);
+        if (getAccount.getAccountBalance() > 0) {
+            double totalBalance = getAccount.getAccountBalance() - amount;
+            getAccount.setAccountBalance(totalBalance);
             repo.save(getAccount);
         }else {
             throw new RuntimeException("insufficient fund");
