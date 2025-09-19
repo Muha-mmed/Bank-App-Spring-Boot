@@ -10,10 +10,10 @@ import com.muhd.bank_app_api.model.Account;
 public interface AccountService {
 
     public Account createAccount(Account account);
-    public Account getAccountDetailsByAccountNumber(Long accountNumber);
+    public Account getAccountDetailsByAccountNumber(String accountNumber);
     public List<Account> getAllAccountDetails();
-    public Account depositAmount(Long accountNumber, Double amount);
-    public Account withdrawAmount(Long accountNumber, Double amount);
+    public Account depositAmount(String accountNumber, Double amount);
+    public Account withdrawAmount(String accountNumber, Double amount);
     public String closeAccount(Long accountNumber);
 
 }

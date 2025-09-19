@@ -24,8 +24,8 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account getAccountDetailsByAccountNumber(Long accountNumber) {
-        Account getDetail = repo.findById(accountNumber).orElseThrow();
+    public Account getAccountDetailsByAccountNumber(String accountNumber) {
+        Account getDetail = repo.findByAccountNumber(accountNumber).orElseThrow();
         return getDetail;
     }
 
@@ -36,8 +36,8 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account depositAmount(Long accountNumber, Double amount) {
-        Optional<Account> account = repo.findById(accountNumber);
+    public Account depositAmount(String accountNumber, Double amount) {
+        Optional<Account> account = repo.findByAccountNumber(accountNumber);
         if (account.isEmpty()){
             throw new RuntimeException("Account is not present");
         }
@@ -51,8 +51,8 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account withdrawAmount(Long accountNumber, Double amount) {
-        Optional<Account> account = repo.findById(accountNumber);
+    public Account withdrawAmount(String accountNumber, Double amount) {
+        Optional<Account> account = repo.findByAccountNumber(accountNumber);
         if (account.isEmpty()){
             throw new RuntimeException("Account is not present");
         }
@@ -68,12 +68,12 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public String closeAccount(Long accountNumber) {
-       Optional<Account> account = repo.findById(accountNumber);
+    public String closeAccount(Long id) {
+       Optional<Account> account = repo.findById(id);
         if (account.isEmpty()){
             throw new RuntimeException("Account is not present");
         }
-        repo.deleteById(accountNumber);
+        repo.deleteById(id);
         return "deteled";
     }
     

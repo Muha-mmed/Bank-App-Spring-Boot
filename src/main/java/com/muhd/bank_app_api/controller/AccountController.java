@@ -32,7 +32,7 @@ public class AccountController {
     }
 
     @GetMapping("/{accountNumber}")
-    public Account getAccountDetailsByAccountNumber(@PathVariable Long accountNumber) {
+    public Account getAccountDetailsByAccountNumber(@PathVariable String accountNumber) {
         Account getAccountDetail = service.getAccountDetailsByAccountNumber(accountNumber);
         return getAccountDetail;
     }
@@ -44,19 +44,19 @@ public class AccountController {
     }
 
     @PutMapping("/deposit/{accountNumber}/{amount}")
-    public Account depositAmount(@PathVariable Long accountNumber,@PathVariable Double amount){
+    public Account depositAmount(@PathVariable String accountNumber,@PathVariable Double amount){
         Account account = service.depositAmount(accountNumber,amount);
         return account;
     }
 
     @PutMapping("/withdraw/{accountNumber}/{amount}")
-    public Account withdrawAmount(@PathVariable Long accountNumber,@PathVariable Double amount){
+    public Account withdrawAmount(@PathVariable String accountNumber,@PathVariable Double amount){
         Account account = service.withdrawAmount(accountNumber,amount);
         return account;
     }
 
-    @DeleteMapping("/delete/{accountNumber}")
-    public ResponseEntity<String> closeAccount(@PathVariable Long accountNumber){
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.closeAccount(accountNumber));
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> closeAccount(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.closeAccount(id));
     }
 }
