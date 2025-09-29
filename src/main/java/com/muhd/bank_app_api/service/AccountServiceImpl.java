@@ -76,5 +76,27 @@ public class AccountServiceImpl implements AccountService{
         repo.deleteById(id);
         return "deteled";
     }
-    
+
+    @Override
+    public Account transferMoney(String senderAccNumber, String receiverAccNumber, Double amount) {
+        Optional<Account> senderAccount = repo.findByAccountNumber(senderAccNumber);
+        Optional<Account> receiverAccount = repo.findByAccountNumber(receiverAccNumber);
+
+        Account getSenderAccount = senderAccount.get();
+        Account getReceiverAccount = receiverAccount.get();
+
+        if (getSenderAccount.getAccountBalance() >= amount){
+            double senderTotalBalance = getSenderAccount.getAccountBalance() - amount;
+            getSenderAccount.setAccountBalance(senderTotalBalance);
+            
+            double receiverTotalBalance = getReceiverAccount.getAccountBalance() + amount;
+            getReceiverAccount.setAccountBalance(receiverTotalBalance);
+
+            repo.save(getSenderAccount);
+            repo.save(getReceiverAccount);
+        } else {
+            throw new RuntimeException("Insufficient Fund");
+        }
+        return getSenderAccount;
+    }
 }

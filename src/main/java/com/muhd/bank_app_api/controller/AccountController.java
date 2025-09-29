@@ -55,6 +55,12 @@ public class AccountController {
         return account;
     }
 
+    @PutMapping("transfer/{senderAccNumber}/{receiverAccNumber}/{amount}")
+    public Account transferMoneyToAnother(@PathVariable String senderAccNumber, @PathVariable String receiverAccNumber, @PathVariable Double amount) {
+        Account transfer = service.transferMoney(senderAccNumber, receiverAccNumber, amount);
+        return transfer;
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> closeAccount(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.closeAccount(id));

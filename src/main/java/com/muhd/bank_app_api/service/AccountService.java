@@ -14,6 +14,7 @@ public interface AccountService {
     public List<Account> getAllAccountDetails();
     public Account depositAmount(String accountNumber, Double amount);
     public Account withdrawAmount(String accountNumber, Double amount);
+    public Account transferMoney(String senderAccNumber, String receiverAccNumber, Double amount);
     public String closeAccount(Long accountNumber);
 
 }
