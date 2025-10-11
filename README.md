@@ -49,12 +49,12 @@ http://localhost:8080
 
 | Method | URL                          | Description              |
 |--------|------------------------------|--------------------------|
-| GET    | `/api/accounts`              | List all accounts        |
-| POST   | `/api/accounts`              | Create new account       |
-| GET    | `/api/accounts/{id}`         | Get account by ID        |
-| POST   | `/api/accounts/{id}/deposit` | Deposit into account     |
-| POST   | `/api/accounts/{id}/withdraw`| Withdraw from account    |
-| POST   | `/api/accounts/transfer`     | Transfer between accounts|
+| GET    | `account`              | List all accounts        |
+| POST   | `account`              | Create new account       |
+| GET    | `account/{accountNumber}`         | Get account by ID        |
+| PUT   | `account/deposit/{AccountNumber}/{amount}` | Deposit into account     |
+| PUT   | `account/withdraw/{AccountNumber/{amount}`| Withdraw from account    |
+| PUT   | `account/transfer/{senderAccNumber}/{receiverAccNumber}/{amount}`     | Transfer between accounts|
 
 ---
 
