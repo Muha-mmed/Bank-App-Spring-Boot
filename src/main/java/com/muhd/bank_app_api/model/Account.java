@@ -1,5 +1,8 @@
 package com.muhd.bank_app_api.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,9 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
@@ -20,46 +25,16 @@ public class Account {
     @Column(name="accountNumber",unique= true, length= 10)
     private String accountNumber;
 
-    private Double accountBalance;
+    private Double accountBalance = 0.0;
 
-    @OneToOne(mappedBy = "account")
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private BankUser bankUser;
+
 
     @Override
     public String toString() {
         return "Account [accountNumber=" + accountNumber + ", accountHolderName="
                 + ", accountBalance=" + accountBalance + "]";
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public Double getAccountBalance() {
-        return accountBalance;
-    }
-
-    public void setAccountBalance(Double accountBalance) {
-        this.accountBalance = accountBalance;
-    }
-
-    public BankUser getBankUser() {
-        return bankUser;
-    }
-
-    public void setBankUser(BankUser bankUser) {
-        this.bankUser = bankUser;
     }
 }

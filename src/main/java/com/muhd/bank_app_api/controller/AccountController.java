@@ -20,15 +20,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/account")
 public class AccountController {
+    
+    private final AccountService service;
 
-    @Autowired
-    AccountService service;
-
-
-    @PostMapping
-    public ResponseEntity<Account> createAccount(@RequestBody Account account){
-        Account createAccount =service.createAccount(account);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createAccount);
+    public AccountController(AccountService service) {
+        this.service = service;
     }
 
     @GetMapping("/{accountNumber}")

@@ -9,7 +9,6 @@ import com.muhd.bank_app_api.model.Account;
 @Service
 public interface AccountService {
 
-    public Account createAccount(Account account);
     public Account getAccountDetailsByAccountNumber(String accountNumber);
     public List<Account> getAllAccountDetails();
     public Account depositAmount(String accountNumber, Double amount);
