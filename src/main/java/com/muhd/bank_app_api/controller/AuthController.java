@@ -1,11 +1,13 @@
 package com.muhd.bank_app_api.controller;
 
-import com.muhd.bank_app_api.model.BankUser;
+import com.muhd.bank_app_api.dto.LoginDTO;
+import com.muhd.bank_app_api.dto.LoginResponseDTO;
+import com.muhd.bank_app_api.dto.RegisterDTO;
+import com.muhd.bank_app_api.dto.RegisterResponseDTO;
 import com.muhd.bank_app_api.service.serviceImplementation.AuthServiceImple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -16,13 +18,13 @@ public class AuthController {
 
     // 🧩 Register endpoint
     @PostMapping("/register")
-    public BankUser register(@RequestBody BankUser user) {
+    public RegisterResponseDTO register(@RequestBody RegisterDTO user) {
         return authService.createUser(user);
     }
 
     // 🔑 Login endpoint
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody Map<String, String> user) {
+    public LoginResponseDTO login(@RequestBody LoginDTO user) {
         return authService.login(user);
     }
 }

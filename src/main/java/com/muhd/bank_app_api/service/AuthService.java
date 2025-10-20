@@ -1,10 +1,11 @@
 package com.muhd.bank_app_api.service;
 
-import java.util.Map;
-
-import com.muhd.bank_app_api.model.BankUser;
+import com.muhd.bank_app_api.dto.LoginDTO;
+import com.muhd.bank_app_api.dto.LoginResponseDTO;
+import com.muhd.bank_app_api.dto.RegisterDTO;
+import com.muhd.bank_app_api.dto.RegisterResponseDTO;
 
 public interface AuthService {
-    public BankUser createUser (BankUser bUser);
-    public Map<String, String> login (Map<String, String> user);
+    public RegisterResponseDTO createUser (RegisterDTO userDto);
+    public LoginResponseDTO login (LoginDTO user);
 }
