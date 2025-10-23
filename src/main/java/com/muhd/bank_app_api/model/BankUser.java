@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "users")
 public class BankUser {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -37,6 +39,14 @@ public class BankUser {
     private String password;
 
     private String role = "USER";
+
+    @Column(name="is_disable")
+    private boolean isDisable = false;
+
+    @Column(name="is_freeze")
+    private boolean isFreeze = false;
+
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", referencedColumnName = "id")

@@ -48,6 +48,8 @@ public class AuthServiceImple implements AuthService {
         user.setLastName(dto.getLastName());
         user.setEmail(dto.getEmail());
         user.setPassword(encoder.encode(dto.getPassword()));
+        user.setDisable(false);
+        user.setFreeze(false);
         user.setRole("USER");
 
         // Handle account creation for USER role
