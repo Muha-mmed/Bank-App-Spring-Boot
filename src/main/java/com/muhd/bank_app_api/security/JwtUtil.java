@@ -34,9 +34,6 @@ public class JwtUtil {
             .compact();
 }
 
-
-
-
     // Extract username
     public String extractUsername(String token) {
         return Jwts.parserBuilder()

@@ -29,45 +29,25 @@ public class BankTransactionServiceImpl implements BankTransactionService{
      */
     @Override
     @Transactional
-    public BankTransaction makeTransaction(String senderEmail, String receiverEmail, double amount, String title) {
-        // ✅ 1. Fetch sender & receiver
-        BankUser sender = bankUserRepo.findByEmail(senderEmail)
-                .orElseThrow(() -> new RuntimeException("Sender not found"));
+    public BankTransaction makeTransaction(String senderAccountNumber, String receiverAccountNumber, double amount, String title) {
+    Account senderAccount = accountRepo.findByAccountNumber(senderAccountNumber)
+            .orElseThrow(() -> new RuntimeException("Sender account not found"));
 
-        BankUser receiver = bankUserRepo.findByEmail(receiverEmail)
-                .orElseThrow(() -> new RuntimeException("Receiver not found"));
+    Account receiverAccount = accountRepo.findByAccountNumber(receiverAccountNumber)
+            .orElseThrow(() -> new RuntimeException("Receiver account not found"));
 
-        Account senderAccount = sender.getAccount();
-        Account receiverAccount = receiver.getAccount();
+    // ✅ Create transaction
+    BankTransaction tx = new BankTransaction();
+    tx.setTitle(title);
+    tx.setAmount(amount);
+    tx.setSenderAccount(senderAccount);
+    tx.setReceiverAccount(receiverAccount);
+    tx.setStatus("SUCCESS");
+    tx.setCreatedAt(LocalDateTime.now());
 
-        if (senderAccount == null || receiverAccount == null) {
-            throw new RuntimeException("Both users must have valid accounts");
-        }
+    return transactionRepo.save(tx);
+}
 
-        // ✅ 2. Check sender balance
-        if (senderAccount.getAccountBalance() < amount) {
-            throw new RuntimeException("Insufficient balance");
-        }
-
-        // ✅ 3. Deduct & add funds
-        senderAccount.setAccountBalance(senderAccount.getAccountBalance() - amount);
-        receiverAccount.setAccountBalance(receiverAccount.getAccountBalance() + amount);
-
-        // ✅ 4. Save updated accounts
-        accountRepo.save(senderAccount);
-        accountRepo.save(receiverAccount);
-
-        // ✅ 5. Record the transaction
-        BankTransaction tx = new BankTransaction();
-        tx.setTitle(title);
-        tx.setAmount(amount);
-        tx.setSenderAccount(senderAccount);
-        tx.setReceiverAccount(receiverAccount);
-        tx.setStatus("SUCCESS");
-        tx.setCreatedAt(LocalDateTime.now());
-
-        return transactionRepo.save(tx);
-    }
 
     /**
      * Get all transactions for a user
