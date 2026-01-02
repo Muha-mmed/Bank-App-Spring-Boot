@@ -1,0 +1,11 @@
+package com.muhd.bank_app_api.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.muhd.bank_app_api.model.BankUser;
+
+public interface BankUserRepo extends JpaRepository<BankUser,Long>{
+    Optional<BankUser> findByEmail(String email);
+}

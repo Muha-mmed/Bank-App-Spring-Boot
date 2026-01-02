@@ -1,12 +1,24 @@
 package com.muhd.bank_app_api.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name= "accounts")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,49 +26,17 @@ public class Account {
 
     @Column(name="accountNumber",unique= true, length= 10)
     private String accountNumber;
-    @Column(name = "account_holder_name")
-    private String accountHolderName;
-    @Column(name = "account_balance")
-    private Double accountBalance;
 
-    public Account() {
-    }
+    private Double accountBalance = 0.0;
 
-    public Account(Long id, String accountNumber, String accountHolderName, Double accountBalance) {
-        this.id = id;
-        this.accountNumber = accountNumber;
-        this.accountHolderName = accountHolderName;
-        this.accountBalance = accountBalance;
-    }
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private BankUser bankUser;
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-    public String getAccountHolderName() {
-        return accountHolderName;
-    }
-    public void setAccountHolderName(String accountHolderName) {
-        this.accountHolderName = accountHolderName;
-    }
-    public Double getAccountBalance() {
-        return accountBalance;
-    }
-    public void setAccountBalance(Double accountBalance) {
-        this.accountBalance = accountBalance;
-    }
     @Override
     public String toString() {
-        return "Account [accountNumber=" + accountNumber + ", accountHolderName=" + accountHolderName
+        return "Account [accountNumber=" + accountNumber + ", accountHolderName="
                 + ", accountBalance=" + accountBalance + "]";
     }
 }
